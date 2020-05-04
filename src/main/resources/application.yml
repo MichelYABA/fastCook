@@ -1,0 +1,56 @@
+server:
+  port: 5000
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 4KB
+      max-file-size: 20MB
+      max-request-size: 25MB
+  profiles:
+    active: dev
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+---
+spring:
+  profiles:
+    active: rct
+  jpa:
+    hibernate:
+      ddl-auto: update
+ssl:
+  key-store: classpath:keystore.jks
+  key-store-password: password
+  key-store-type: JKS
+  key-alias: fastcook
+  key-password: password
+---
+spring:
+  profiles:
+    active: prod
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
